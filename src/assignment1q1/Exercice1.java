@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package assignment1;
+package assignment1q1;
 
 import java.util.Scanner;
 import java.util.Arrays;
@@ -12,7 +12,7 @@ import java.util.Arrays;
  *
  * @author User
  */
-public class MarcZgheibDSFall2021 {
+public class Exercice1 {
 
     /**
      * @param args the command line arguments
@@ -30,11 +30,12 @@ public class MarcZgheibDSFall2021 {
             System.out.println("Enter the name of movie " + (i+1));
             Scanner get = new Scanner(System.in);
             String movieName = get.nextLine();
-            names[i]=movieName;
+            names[i] =movieName;
         }
         System.out.println("Enter the number of attendees: ");
         Scanner attend = new Scanner(System.in);
         int numOfAttendees = attend.nextInt();
+        int[][] ratings = new int[numOfAttendees] [numbOfMovies];
         int counter=0;
         do
         {
