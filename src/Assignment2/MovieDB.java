@@ -21,28 +21,27 @@ public class MovieDB {
         // check if the array is already full
         if (moviesList.length == effectiveNbMovies) {
             Movie[] newMovieList = new Movie[BUFFER_SIZE * 2];
-            newMovieList = Arrays.copyOf(moviesList, BUFFER_SIZE*2);
-            newMovieList[effectiveNbMovies]= movie;
-            // increase the size of the array
-            // ???
-            // 1- create a new array of larger size (BUFFER_SIZE * 2),
-            //    then copy the previous elements,
-            //    and finally add the new one
-            // 2- Arrays.copy()... check it from the JavaDoc
+            for (int i = 0; i < moviesList.length; i++) {
+                newMovieList[i]=moviesList[i];
+                
+                
+            }
+            moviesList=newMovieList;
         }
         moviesList[effectiveNbMovies] = movie;
         effectiveNbMovies++;
     }
 
     void display() {
-        // Equivalent to
-//        for (int i = 0; i < moviesList.length; i++) {
-//            Movie movie = moviesList[i];
-//            System.out.println("Movie: " + movie.getName() + ", " + movie.getReleaseYear());
+        
+        for (int i = 0; i < effectiveNbMovies; i++) {
+            Movie movie = moviesList[i];
+            System.out.println("Movie: " + movie.getName() + ", " + movie.getReleaseYear());
 //        }
         // for each variable "movie" of type "Movie" in "moviesList", do...
-        for (Movie movie : moviesList) {
-            System.out.println("Movie: " + movie.getName() + ", " + movie.getReleaseYear());
+      // Equivalent to 
+      //for (Movie movie : moviesList) {
+        //    System.out.println("Movie: " + movie.getName() + ", " + movie.getReleaseYear());
         }
     }
 
