@@ -9,150 +9,122 @@ package assignment3;
  *
  * @author User
  */
-public class LinkedList implements ListInterface {
 
-    private Node head;
-
-    public LinkedList() {
-        this.head = null;
-    }
-
-    public LinkedList(Node head) {
-        this.head = head;
-    }
-
-    public LinkedList(Object nodeValue) {
-        this.head = new Node(nodeValue);
-    }
-
-    @Override
-    public int size() {
-        if (isEmpty()) {
-            return 0;
-            //you can also check here if head.getNext() == null to return 1
-            //but it's not necessary as it will be checked in the loop
-        } else {
-            Node currentNode = this.head;
-            int count = 0;
-            while (currentNode != null) {
-                currentNode = currentNode.getNext();
-                count++;
-            }
-            return count;
-        }
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return this.head == null;
-    }
-
-    //clear linked list
-    public void makeEmpty() {
-        this.head = null;
-    }
+ public class LinkedList implements list {
+     
+     private class Node {
+     
+         Object value;
+         Node next;
+     
+        public Node (Object value){
+        
+            this.value=value;
+     }
+     
+     }
+     private Node head;
 
     @Override
     public void add(Object newElement) {
-        if (head == null) { //or if(isEmpty())
+        if (head == null) {
+                
             head = new Node(newElement);
-        } else {
+            }
+        else
+        {
             Node currentNode = head;
-            while (currentNode.getNext() != null) {
-                currentNode = currentNode.getNext();
+            while (currentNode.next != null)
+            {                
+                currentNode = currentNode.next;
             }
-            currentNode.setNext(new Node(newElement));
-        }
-    }
-
-    public Node getHeadNode() {
-        if (isEmpty()) {
-            throw new RuntimeException("List is empty! Can't fetch head.");
-        } else {
-            return this.head;
-        }
-    }
-
-    public Object getHeadValue() {
-        return this.getHeadNode().getValue();
-    }
-
-    public Node getTailNode() {
-        if (isEmpty()) {
-            throw new RuntimeException("List is empty! Can't fetch tail.");
-        }
-        //initialize
-        Node currentNode = head;
-        while (currentNode.getNext() != null) {
-            currentNode = currentNode.getNext();
-        }
-        return currentNode;
-    }
-
-    public Object getTailValue() {
-        return this.getTailNode().getValue();
-    }
-
-    public Node getNode(int index) {
-        if (index < 0 || index >= size()) {
-            throw new ArrayIndexOutOfBoundsException();
-        } else if (isEmpty()) {
-            throw new RuntimeException("Cannot fetch node, list is empty!");
-        } else {
-            Node currentNode = this.head;
-            int i = 0;
-            while (currentNode != null) {
-                if (i == index) {
-                    return currentNode;
-                }
-                i++;
-                currentNode = currentNode.getNext();
-            }
-            throw new RuntimeException("Object at given index is not found!");
+            currentNode.next = new Node(newElement);
         }
     }
 
     @Override
     public Object get(int index) {
-        return this.getNode(index).getValue();
+        
+            Node currentNode = head;
+            int counter = 0;
+            while(currentNode != null)
+            {
+                if(counter==index){
+                    return currentNode.value;
+                }
+                currentNode = currentNode.next;
+                counter++;
+            }
+        
+         throw new IndexOutOfBoundsException("Index not found: " + index);
     }
 
-    //similar to contain method
+    @Override
+    public int size() {
+        Node currentNode = head;
+        int counter=0;
+        while (currentNode!=null)
+            {
+                currentNode = currentNode.next;
+                counter++;
+            }
+            return counter;
+        
+    }
+
     @Override
     public int indexOf(Object element) {
-        Node currentNode = this.head;
-        int index = 0;
-        while (currentNode != null) {
-            if (currentNode.getValue().equals(element)){
-                return index;
+        Node currentNode = head;
+        int counter=0;
+        while(currentNode!=null)
+        {
+            if(currentNode.value.equals(element))
+            {
+                return counter;
+            }
+            counter++;
+            currentNode = currentNode.next;
         }
-        index++;
-        currentNode=currentNode.getNext();
-        }
-        throw new UnsupportedOperationException("Not supported yet.");
+        return -1;
     }
 
-    //Course homework
-    //Hint: make use of get functions defined above
     @Override
     public Object remove(int index) {
-        if (isEmpty())
-        {  
-            throw new RuntimeException("list is empty");
-        }
-        else
+        
+        Node currentNode = head;
+        Node previousNode;
+        int counter=0;
+        while(currentNode!=null)
         {
-            for (int i = 0; i < index; i++) {
-                Node currentNode = head;
+            if(counter == index)
+            {
+                previousNode = currentNode.next;
+                currentNode = null;
+                return currentNode;
+                
             }
-            Node currentNode = null;
-                   
+            counter++;
+            currentNode=currentNode.next;
         }
-        return index;
+        throw new ArrayIndexOutOfBoundsException("index not found: " +index );
     }
 
     @Override
     public boolean remove(Object element) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Node currentNode = head;
+        Node previousNode;
+        while(currentNode != null)
+        {
+            if(currentNode.value.equals(element))
+            {
+                previousNode = currentNode.next;
+                currentNode = null;
+                return true; 
+            }
+            currentNode=currentNode.next;
+        }
+        
+        return false;
     }
-}
+     
+ }
